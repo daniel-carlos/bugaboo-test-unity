@@ -10,36 +10,52 @@ using Photon.Realtime;
 
 public class LoginController : MonoBehaviourPunCallbacks
 {
-    [Header("------ UI ------")]
+    [Header("------ UI (Inputs) ------")]
     public TMP_InputField inputUsernameField;
     public TMP_InputField inputRoomField;
-    [Tooltip("Objetos da UI que serão desabilitados enquanto esstiver carregando")] public Selectable[] inteactableElements;
+    public Toggle offlineToggle;
+
+    [Header("------ UI (Panels) ------")]
+    public GameObject formPanel;
+    public GameObject connectingPanel;
+    public GameObject waitingPanel;
 
     [Header("------ User ------")]
     public User user = null;
 
-    public bool loading = true;
+    public bool loading = false;
+    public bool confirmed = false;
+    public bool inRoom = false;
 
     private void Start()
     {
-        PhotonNetwork.ConnectUsingSettings();
+
     }
 
-    public override void OnConnected()
+
+    public void Cancel()
     {
         loading = false;
+        confirmed = false;
+        inRoom = false;
+        PhotonNetwork.Disconnect();
     }
 
-    public override void OnJoinedRoom()
-    {
-        PhotonNetwork.LoadLevel("Gameplay");
-    }
-
+    bool started = false;
     private void Update()
     {
-        foreach (var item in inteactableElements)
+        formPanel.SetActive(!confirmed);
+        connectingPanel.SetActive(confirmed && !PhotonNetwork.IsConnected);
+        waitingPanel.SetActive(confirmed && PhotonNetwork.IsConnected);
+
+        if (PhotonNetwork.IsConnected && PhotonNetwork.CurrentRoom != null)
         {
-            item.interactable = !loading;
+            Debug.Log($"Connected {PhotonNetwork.CurrentRoom}");
+            if (PhotonNetwork.CurrentRoom.PlayerCount >= PhotonNetwork.CurrentRoom.MaxPlayers && !started)
+            {
+                started = true;
+                PhotonNetwork.LoadLevel("Gameplay");
+            }
         }
     }
 
@@ -87,6 +103,7 @@ public class LoginController : MonoBehaviourPunCallbacks
 
         if (ok)
         {
+            confirmed = true;
             Connect();
         }
         else
@@ -98,14 +115,33 @@ public class LoginController : MonoBehaviourPunCallbacks
 
     void Connect()
     {
-        bool randomRoom = inputRoomField.text == "";
-
-        RoomOptions options = new RoomOptions();
-        options.MaxPlayers = 2;
-
-        PhotonNetwork.NickName = inputUsernameField.text;
-        PhotonNetwork.JoinRandomOrCreateRoom();
+        Debug.Log("Conectar");
+        PhotonNetwork.ConnectUsingSettings();
     }
 
+    public override void OnConnectedToMaster()
+    {
+        Debug.Log("Conectado ao Master");
 
+        RoomOptions options = new RoomOptions();
+        PhotonNetwork.NickName = inputUsernameField.text;
+
+        if (offlineToggle.isOn)
+        {
+            options.MaxPlayers = 1;
+            PhotonNetwork.CreateRoom(PhotonNetwork.NickName, options);
+        }
+        else
+        {
+            options.MaxPlayers = 2;
+            PhotonNetwork.JoinRandomOrCreateRoom(roomOptions: options);
+        }
+
+    }
+
+    public override void OnJoinedRoom()
+    {
+        Debug.Log("Entrou numa Sala");
+        inRoom = true;
+    }
 }

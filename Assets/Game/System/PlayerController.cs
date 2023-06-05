@@ -1,16 +1,20 @@
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
+using Photon.Realtime;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 {
     public InputType inputType;
     public float speed = 2f;
     public Rigidbody2D body;
-    public PhotonView view;
 
     public Vector2 moveIntention = Vector2.zero;
+
+
+    public PlayerManager manager;
+
+    
+    public int score = 0;
 
     // Start is called before the first frame update
     void Awake()
@@ -20,13 +24,13 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (!view.IsMine) { return; }
+        if (!photonView.IsMine) { return; }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!view.IsMine) { return; }
+        if (!photonView.IsMine) { return; }
         body.velocity = speed * new Vector3(moveIntention.x, moveIntention.y);
     }
 
@@ -37,7 +41,25 @@ public class PlayerController : MonoBehaviour
 
     public void OnColletTitem()
     {
-        view.RPC("OnItemCollected", RpcTarget.All, view.Owner);
+        if (photonView.IsMine)
+        {
+            score++;
+            manager.photonView.RPC("OnItemCollected", RpcTarget.All, photonView.Owner);
+        }
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            // Envia o valor da propriedade para os outros clientes
+            stream.SendNext(score);
+        }
+        else if (stream.IsReading)
+        {
+            // Recebe o valor da propriedade dos outros clientes
+            score = (int)stream.ReceiveNext();
+        }
     }
 }
 

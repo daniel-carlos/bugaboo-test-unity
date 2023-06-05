@@ -95,10 +95,10 @@ GameObject:
   - component: {fileID: 7170391726004544054}
   - component: {fileID: 8593990663765250022}
   - component: {fileID: 3635737192493061090}
-  - component: {fileID: 413649243473890955}
   - component: {fileID: 8254888848465102006}
   - component: {fileID: -3002166692304560962}
   - component: {fileID: 8057663479362775609}
+  - component: {fileID: 4783678971582154087}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -195,29 +195,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &413649243473890955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3660807887704449676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 8254888848465102006}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!114 &8254888848465102006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,8 +226,9 @@ MonoBehaviour:
   inputType: 0
   speed: 2
   body: {fileID: 3635737192493061090}
-  view: {fileID: 413649243473890955}
   moveIntention: {x: 0, y: 0}
+  manager: {fileID: 0}
+  score: 0
 --- !u!114 &8057663479362775609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,3 +242,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: -3002166692304560962}
+--- !u!114 &4783678971582154087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3660807887704449676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 1
+  OwnershipTransfer: 0
+  observableSearch: 0
+  ObservedComponents:
+  - {fileID: 8254888848465102006}
+  - {fileID: -3002166692304560962}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

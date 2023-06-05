@@ -2,8 +2,9 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
-public class Item : MonoBehaviour
+public class Item : MonoBehaviourPun
 {
     // Start is called before the first frame update
     void Start()
@@ -24,7 +25,9 @@ public class Item : MonoBehaviour
         {
             PlayerController player = other.GetComponent<PlayerController>();
             player.OnColletTitem();
-            PhotonNetwork.Destroy(gameObject);
+            if (PhotonNetwork.IsMasterClient){
+                PhotonNetwork.Destroy(photonView);
+            }
         }
     }
 }
