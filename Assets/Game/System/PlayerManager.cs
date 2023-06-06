@@ -1,9 +1,12 @@
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using System.Collections.Generic;
+using System.Collections;
 
 public class PlayerManager : MonoBehaviourPunCallbacks
 {
+    public List<PlayerController> playerControllers;
 
     public void SpawnItem()
     {
@@ -13,8 +16,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         }
     }
 
-
-
     [PunRPC]
     void OnItemCollected(Player player)
     {
@@ -22,15 +23,38 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         SpawnItem();
     }
 
+    [PunRPC]
+    private void RegisterPlayer(int playerId)
+    {
+        PhotonView playerView = PhotonNetwork.GetPhotonView(playerId);
+        playerControllers.Add(playerView.GetComponent<PlayerController>());
+        // StartCoroutine(LoadUserData(playerView.GetComponent<PlayerController>()));
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        GameObject player = PhotonNetwork.Instantiate("Player", transform.position, transform.rotation);
+        GameObject player = PhotonNetwork.Instantiate("Player", Random.insideUnitCircle * 3f, transform.rotation);
         PlayerController controller = player.GetComponent<PlayerController>();
         controller.manager = this;
 
+        // playerControllers.Add(controller);
+        photonView.RPC("RegisterPlayer", RpcTarget.All, controller.photonView.ViewID);
+
         SpawnItem();
+
+
+    }
+
+    IEnumerator LoadUserData(PlayerController player)
+    {
+        yield return null;
+    }
+
+    private void Update()
+    {
+        // excluir da lista de controllers todos que forem nulos
+        playerControllers.RemoveAll(item => item == null);
     }
 
 }

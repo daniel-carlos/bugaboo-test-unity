@@ -13,13 +13,17 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     public PlayerManager manager;
 
-    
     public int score = 0;
 
     // Start is called before the first frame update
     void Awake()
     {
         body = GetComponent<Rigidbody2D>();
+    }
+
+    private void Start()
+    {
+        
     }
 
     private void Update()

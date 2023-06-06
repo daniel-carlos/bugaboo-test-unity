@@ -228,6 +228,10 @@ MonoBehaviour:
   body: {fileID: 3635737192493061090}
   moveIntention: {x: 0, y: 0}
   manager: {fileID: 0}
+  user:
+    id: 0
+    username: 
+    score: 0
   score: 0
 --- !u!114 &8057663479362775609
 MonoBehaviour:
