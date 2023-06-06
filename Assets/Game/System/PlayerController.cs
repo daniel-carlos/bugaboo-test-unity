@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     public int score = 0;
 
+    public bool control = false;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -35,6 +37,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     void FixedUpdate()
     {
         if (!photonView.IsMine) { return; }
+        if(!control) { return; }
         body.velocity = speed * new Vector3(moveIntention.x, moveIntention.y);
     }
 

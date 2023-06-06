@@ -67,7 +67,7 @@ public class BackendAPI : MonoBehaviour
     public static IEnumerator Put(string uri, string data, UnityAction<UnityWebRequest, JObject> callback = null)
     {
         string fullURI = URI(uri);
-        using (UnityWebRequest webRequest = UnityWebRequest.PostWwwForm(fullURI, data))
+        using (UnityWebRequest webRequest = UnityWebRequest.Put(fullURI, data))
         {
             SetHeaders(webRequest, data);
             yield return webRequest.SendWebRequest();
