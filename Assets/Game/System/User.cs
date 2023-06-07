@@ -7,6 +7,7 @@ public class User
 {
     public int id;
     public string username;
+    public int score;
 
     public User()
     { }
@@ -16,7 +17,6 @@ public class User
         this.username = username;
     }
 
-    public int score;
 
     public User(int id, string username, int score)
     {
