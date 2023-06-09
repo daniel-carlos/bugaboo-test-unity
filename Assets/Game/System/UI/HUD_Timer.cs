@@ -8,13 +8,11 @@ public class HUD_Timer : MonoBehaviour
     public PlayerManager manager;
     public TMP_Text label;
 
-    // Start is called before the first frame update
     void Start()
     {
         label = GetComponent<TMP_Text>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         int mins = Mathf.FloorToInt( manager.time / 60);

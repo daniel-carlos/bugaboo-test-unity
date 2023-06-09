@@ -14,6 +14,7 @@ public class LoginController : MonoBehaviourPunCallbacks
     public TMP_InputField inputUsernameField;
     public TMP_InputField inputRoomField;
     public Toggle offlineToggle;
+    public TMP_Dropdown dropdown;
 
     [Header("------ UI (Panels) ------")]
     public GameObject formPanel;
@@ -23,15 +24,11 @@ public class LoginController : MonoBehaviourPunCallbacks
     [Header("------ User ------")]
     public User user = null;
 
-    public bool loading = false;
-    public bool confirmed = false;
-    public bool inRoom = false;
 
-    private void Start()
-    {
-
-    }
-
+    [Header("------ CurrentState ------")]
+    [SerializeField] bool loading = false;
+    [SerializeField] bool confirmed = false;
+    [SerializeField] bool inRoom = false;
 
     public void Cancel()
     {
@@ -39,6 +36,15 @@ public class LoginController : MonoBehaviourPunCallbacks
         confirmed = false;
         inRoom = false;
         PhotonNetwork.Disconnect();
+    }
+
+    private void Start()
+    {
+        dropdown.value = PlayerPrefs.GetInt("game/controlType", 0);
+        dropdown.onValueChanged.AddListener((int newValue) =>
+        {
+            PlayerPrefs.SetInt("game/controlType", newValue);
+        });
     }
 
     bool started = false;

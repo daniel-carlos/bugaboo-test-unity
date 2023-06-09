@@ -8,12 +8,11 @@ public class PlayPauseButton : MonoBehaviour
 {
     public PlayerManager playerManager;
 
+    [Header("------ Icon ------")]
     public Image targetIconImage;
     public Sprite playIcon;
     public Sprite pauseIcon;
 
-
-    // Update is called once per frame
     void Update()
     {
         if (!PhotonNetwork.IsConnected)
@@ -23,6 +22,6 @@ public class PlayPauseButton : MonoBehaviour
         };
         if (PhotonNetwork.CurrentRoom.PlayerCount > 1) Destroy(gameObject);
         if (playerManager == null) { return; }
-        targetIconImage.sprite = playerManager.paused ? pauseIcon : playIcon;
+        targetIconImage.sprite = playerManager.paused ? playIcon : pauseIcon;
     }
 }

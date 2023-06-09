@@ -226,7 +226,6 @@ MonoBehaviour:
   inputType: 0
   speed: 2
   body: {fileID: 3635737192493061090}
-  moveIntention: {x: 0, y: 0}
   manager: {fileID: 0}
   score: 0
   control: 0

@@ -1,14 +1,17 @@
 using Photon.Pun;
-using Photon.Realtime;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 {
+    [Header("------ Input ------")]
     public InputType inputType;
+
+    [Header("------ Ohysics ------")]
     public float speed = 2f;
     public Rigidbody2D body;
 
-    public Vector2 moveIntention = Vector2.zero;
+
+    Vector2 moveIntention = Vector2.zero;
 
 
     public PlayerManager manager;
@@ -25,7 +28,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Start()
     {
-        
+        inputType = (InputType) PlayerPrefs.GetInt("game/controlType", 0);
     }
 
     private void Update()
@@ -73,6 +76,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
 public enum InputType
 {
-    Keyboard,
-    Gamepad
+    Keyboard = 0,
+    Gamepad = 1
 }

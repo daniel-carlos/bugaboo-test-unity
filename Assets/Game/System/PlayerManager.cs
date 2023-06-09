@@ -12,6 +12,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 {
     public List<PlayerController> playerControllers;
 
+    [Header("------ State ------")]
     public bool started = false;
     public bool paused = false;
     public bool finished = false;
@@ -22,6 +23,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     [Header("------ UI ------")]
     public GameObject uiPausedModal;
     public GameObject uiResultsPanel;
+
 
     public void ToggoPlayPause()
     {
@@ -115,7 +117,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void OnItemCollected(Player player)
     {
-        Debug.Log($"Player score {player.NickName}");
         SpawnItem();
     }
 
@@ -140,11 +141,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         SpawnItem();
 
         Invoke("StartGame", 3f);
-    }
-
-    IEnumerator LoadUserData(PlayerController player)
-    {
-        yield return null;
     }
 
     private void Update()

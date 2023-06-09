@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputKeyboard : MonoBehaviour
+public class InputController : MonoBehaviour
 {
     public PlayerController controller;
 

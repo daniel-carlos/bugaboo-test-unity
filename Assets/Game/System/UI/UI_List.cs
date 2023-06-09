@@ -1,11 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 public abstract class UI_List<T> : MonoBehaviour
 {
+    [Tooltip("Objeto que servirá como template para as cópias")]
     public UI_Template<T> template;
+
+
     List<UI_Template<T>> clones = new List<UI_Template<T>>();
 
     public void UpdateList(List<T> values)

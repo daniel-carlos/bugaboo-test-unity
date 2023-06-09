@@ -1,10 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.Networking;
 using UnityEngine;
 using UnityEngine.Events;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
 
 public class BackendAPI : MonoBehaviour
 {
