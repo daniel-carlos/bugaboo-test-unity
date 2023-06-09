@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerControllers: []
+  started: 0
   paused: 0
   finished: 0
   time: 30
@@ -709,10 +710,10 @@ RectTransform:
   m_Father: {fileID: 1582230356}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 841.1271, y: 491.58}
-  m_SizeDelta: {x: -1817.8584, y: -1000.624}
+  m_AnchoredPosition: {x: -114.57, y: -48.416}
+  m_SizeDelta: {x: 229.1416, y: 79.37598}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &473946240
 MonoBehaviour:
@@ -1429,12 +1430,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1735,10 +1736,10 @@ RectTransform:
   m_Father: {fileID: 1582230356}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -752.20306, y: -48.416016}
-  m_SizeDelta: {x: -1504.4371, y: -96.832}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 207.79694, y: -48.416016}
+  m_SizeDelta: {x: 415.56287, y: 983.16797}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1728917510
 MonoBehaviour:

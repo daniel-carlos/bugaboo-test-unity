@@ -80,15 +80,19 @@ public class PlayerManager : MonoBehaviourPunCallbacks
             pc.control = false;
         });
 
-        if (photonView.Owner.IsMasterClient)
+        
+    }
+
+    IEnumerator SaveResults()
+    {
+        for (int i = 0; i < playerControllers.Count; i++)
         {
-            playerControllers.ForEach(pc =>
-            {
-                StartCoroutine(BackendAPI.Put(
+            PlayerController pc = playerControllers[i];
+            yield return new WaitForSeconds(0.1f);
+            StartCoroutine(BackendAPI.Put(
                         $"api/user/score",
                         JsonConvert.SerializeObject(new { score = pc.score, username = pc.photonView.Owner.NickName })
                    ));
-            });
         }
     }
 
@@ -110,7 +114,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            GameObject item = PhotonNetwork.InstantiateRoomObject("item", new Vector2(Random.Range(-5, 5), Random.Range(-5, 5)), Quaternion.identity);
+            float maxDistance = 4f;
+            GameObject item = PhotonNetwork.InstantiateRoomObject("item", new Vector2(Random.Range(-maxDistance, maxDistance), Random.Range(-maxDistance, maxDistance)), Quaternion.identity);
         }
     }
 
@@ -155,7 +160,11 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         if (time <= 0 && !finished)
         {
             time = 0f;
-            ShowResults();
+            StartCoroutine(SaveResults());
+            if (photonView.Owner.IsMasterClient)
+            {
+                ShowResults();
+            }
             Invoke("FinishGame", 5f);
         }
     }
